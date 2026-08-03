@@ -9,8 +9,8 @@ from sentence_transformers import SentenceTransformer
 # Resolve absolute paths based on backend directory
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "models", "learnora_finetuned_stv2")
-METADATA_PATH = os.path.join(BASE_DIR, "datasets", "learnora_metadata_final.json")
-FAISS_INDEX_PATH = os.path.join(BASE_DIR, "datasets", "learnora_faiss_final.index")
+METADATA_PATH = os.path.join(BASE_DIR, "learnora_data", "learnora_metadata_final.json")
+FAISS_INDEX_PATH = os.path.join(BASE_DIR, "learnora_data", "learnora_faiss_final.index")
 
 
 _model: SentenceTransformer | None = None
