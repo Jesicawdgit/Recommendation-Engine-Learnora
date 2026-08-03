@@ -5,8 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import FishboneRoadmap from "./FishboneRoadmap";
 
-const API_URL = "http://localhost:5001/api/roadmap";
-const FISHBONE_API_URL = "http://localhost:5001/api/fishbone";
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5001";
+
+const API_URL = `${API_BASE_URL}/api/roadmap`;
+const FISHBONE_API_URL = `${API_BASE_URL}/api/fishbone`;
 
 function App() {
   const { logout, user, isAuthenticated } = useAuth0();
