@@ -1,18 +1,15 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./App.css";
 import { Plus, Globe, Megaphone, AppWindow, Mic, Send, ExternalLink } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import FishboneRoadmap from "./FishboneRoadmap";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5001";
 
-const API_URL = `${API_BASE_URL}/api/roadmap`;
 const FISHBONE_API_URL = `${API_BASE_URL}/api/fishbone`;
 
 function App() {
-  const { logout, user, isAuthenticated } = useAuth0();
-  const navigate = useNavigate();
+  const { logout, user } = useAuth0();
   const [conversations, setConversations] = useState([]);
   const [activeConversationId, setActiveConversationId] = useState(null);
   const [input, setInput] = useState("");
@@ -245,50 +242,6 @@ function App() {
         setIsTyping(false);
       }, 1000);
     }
-  };
-
-  const formatRoadmapResponse = (data) => {
-    if (!data.steps || data.steps.length === 0) {
-      return "I couldn't find any relevant learning resources for your query. Please try rephrasing your question.";
-    }
-
-    let response = `Here's your learning roadmap for "${data.query}":\n\n`;
-    
-    data.steps.forEach((step, index) => {
-      response += `**Step ${step.step}: ${step.title}**\n`;
-      
-      step.items.forEach((item, itemIndex) => {
-        response += `${itemIndex + 1}. ${item.title}\n`;
-        if (item.source) {
-          response += `   Source: ${item.source}\n`;
-        }
-        if (item.link) {
-          // Create a more user-friendly link text
-          try {
-            const url = new URL(item.link);
-            const linkText = url.hostname + url.pathname;
-            // Ensure the link text and URL are properly escaped
-            const escapedLinkText = linkText.replace(/[\[\]()]/g, '');
-            const escapedUrl = item.link.replace(/[\[\]()]/g, '');
-            response += `   Link: [${escapedLinkText}](${escapedUrl})\n`;
-          } catch (error) {
-            // If URL parsing fails, use the original link with escaping
-            const escapedLink = item.link.replace(/[\[\]()]/g, '');
-            response += `   Link: [${escapedLink}](${escapedLink})\n`;
-          }
-        }
-        if (item.labels && item.labels.length > 0) {
-          response += `   Tags: ${item.labels.join(", ")}\n`;
-        }
-        response += "\n";
-      });
-      
-      if (index < data.steps.length - 1) {
-        response += "---\n\n";
-      }
-    });
-
-    return response;
   };
 
   const renderLineWithLinks = (text) => {

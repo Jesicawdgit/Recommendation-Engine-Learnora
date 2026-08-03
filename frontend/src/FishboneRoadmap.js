@@ -38,7 +38,7 @@ const FishboneRoadmap = ({ data, onClose, inline = false }) => {
       
       try {
         // Validate the URL
-        const url = new URL(item.link);
+        new URL(item.link);
         // Open in new tab
         window.open(item.link, '_blank', 'noopener,noreferrer');
       } catch (error) {
