@@ -24,6 +24,9 @@ frontend/.config/
 
 # Backend local data/models (too large for normal git)
 backend/models/
+!backend/models/
+!backend/models/learnora_finetuned_stv2/
+!backend/models/learnora_finetuned_stv2/**
 
 # Optional local artifacts
 *.log
